@@ -1,5 +1,5 @@
 <template>
-    <Profiled :proid="proid"/>
+    <Profile v-bind:proid=this.proid />
 </template>
 
 <script>
@@ -15,7 +15,9 @@ export default {
             proid: '5'
         }
     },
-    components: Profile,
+    components: {
+        Profile
+    },
     mounted(){
          const route = useRoute()
          this.proid = route.params.user

@@ -21,14 +21,14 @@ export default {
     },
     methods: {
         getProfileId(){
-            const id = this.profileId
+            const id = this.proid
             UserService.getProfile(id).then((response) => {
                 this.users = response.data
             })
         }
     },
     created() {
-       console.log("passed data: " + this.proid);
+        console.log("passed data: " + this.proid);
     },
 }
 </script>
