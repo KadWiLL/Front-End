@@ -1,34 +1,37 @@
 <template>
-    <h1>{{proid}}</h1>
+<div>
+    <h1>{{email}}</h1>
+    <h1>{{name}}</h1>
+    <h1>{{post}}</h1>
+    
+</div>
+    
 </template>
 
 <script>
-import UserService from '../services/UserService'
+
 
 
 export default {
     name: 'Profiled',
     props: {
-        proid: String
+        email: String,
+        name: String,
+        post: String
     },
     data(){
         return {
-            users: Object,
-            profileId: '',
+            
             
         }
         
     },
     methods: {
-        getProfileId(){
-            const id = this.profileId
-            UserService.getProfile(id).then((response) => {
-                this.users = response.data
-            })
-        }
+        
     },
     created() {
-       console.log("passed data: " + this.proid);
+       
+       
     },
 }
 </script>
