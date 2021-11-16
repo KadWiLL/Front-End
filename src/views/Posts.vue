@@ -1,6 +1,6 @@
 <template>
-<div class="hero">
-        <div class="post" v-for="posts in post" v-bind:key="posts.id">
+    <div class="hero">
+        <div class="post" v-for="post in posts" v-bind:key="post.id">
             <div class="post-header">
                 <div class="post-img">
                     <img class="img" src="https://cdn.pixabay.com/photo/2020/10/05/08/04/boys-5628502_960_720.jpg" 
@@ -10,50 +10,47 @@
             </div>
             <div class="post-body">
                 <div class="post-body-header">
-                    <h3>{{name}}</h3>
-                    <h5>{{email}}</h5>
+                    <h3>{{post.user.firstName}}</h3>
+                    <h5>{{post.user.email}}</h5>
                     <h5> - 1h ago</h5>
                 </div>
                 <div class="post-body-text">
-                    <h1>{{posts.text}}</h1>
+                    <h1>{{post.text}}</h1>
                 </div>
                 <div class="post-body-footer">
-                    <i class="far fa-heart"> {{ posts.likes}}</i>
-                    <i class="far fa-thumbs-down"> {{ posts.dislikes}}</i>
+                    <i class="far fa-heart"> {{ post.likes}}</i>
+                    <i class="far fa-thumbs-down"> {{ post.dislikes}}</i>
                 </div>
             </div>
             
         </div>
-</div>
-    
+    </div>
 </template>
 
 <script>
+import UserService from '../services/UserService.js'
+
 export default {
-    name: 'Profiled',
+    name: 'Posts',
     components: {
-        
-    },
-    props: {
-        email: String,
-        name: String,
-        post: String,
-        uid: String
+
     },
     data(){
-        return {
-            
-            
+        return{
+            posts: [],
+            date: Math.abs((new Date().getTime() / 1000).toFixed(0))
         }
-        
     },
     methods: {
-        
+        getPosts(){
+            UserService.getAllPosts().then((response) => {
+                this.posts = response.data
+            })
+        }
     },
-    created() {
-       
-       
-    },
+    created(){
+        this.getPosts()
+    }
 }
 </script>
 
@@ -78,10 +75,8 @@ export default {
 }
 
 .img{
-    width: 60%;
-    border-radius: 50%;
-    padding: 5px;
-    border: 5px solid black;
+    width: 80%;
+    border-radius: 50px;
 }
 
 .post-body-header{
@@ -115,6 +110,5 @@ export default {
     font-size: 25px;
     margin-right: 30px;
 }
-
 
 </style>

@@ -1,9 +1,11 @@
 <template>
     <div>
+        <MakePost @add-post="addPost"/>
         <Profiled 
             :name="users.firstName" 
             :email="users.email" 
-            :post="users.posts[0].text"
+            :post="users.posts"
+            :uid="users.id"
         />   
     </div>
     
@@ -13,6 +15,7 @@
 import { useRoute } from 'vue-router';
 import Profiled from '../components/Profiled'
 import UserService from '../services/UserService'
+import MakePost from '../components/MakePost.vue'
 
 export default {
     name: 'ProfileUser',
@@ -20,23 +23,31 @@ export default {
     },
     data(){
         return {
-            users: Object
+            users: Object,
+            route: useRoute()
         }
     },
     components: {
-        Profiled,
+        Profiled,MakePost
     },
     methods: {
         getProfileId(){
-            const route = useRoute()
-            const id = route.params.user
+            const id = this.route.params.user
             UserService.getProfile(id).then((response) => {
                 this.users = response.data
             })
+        },
+
+        addPost(post){
+            const id = this.route.params.user
+            UserService.makePost2(id, post).then(response => {
+                this.users.posts = [...this.users.posts, response.data]
+            })
         }
     },
-    created(){
+    async created(){
         this.getProfileId()
+        
     },
     mounted(){
     
