@@ -1,11 +1,13 @@
 <template>
     <div>
         <MakePost @add-post="addPost"/>
-        <Profiled 
+        <Profiled
+             
             :name="users.firstName" 
             :email="users.email" 
             :post="users.posts"
             :uid="users.id"
+            @delete-post="deletePost"
         />   
     </div>
     
@@ -42,6 +44,15 @@ export default {
             const id = this.route.params.user
             UserService.makePost2(id, post).then(response => {
                 this.users.posts = [...this.users.posts, response.data]
+            })
+        },
+
+        deletePost(id){
+            
+            UserService.deletePost(id).then(() => {
+                this.route.push({
+                    path: `/profile/${this.route.params.user}`
+                })
             })
         }
     },

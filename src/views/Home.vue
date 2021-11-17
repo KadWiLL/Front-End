@@ -1,7 +1,7 @@
 <template>
     <div class="container">
-        <form @submit="onSubmit" action="/profile/{{user}}">
-            <input type="text" placeholder="Enter Id number" name="user" v-model="user">
+        <form @submit="onSubmit">
+            <input type="text" placeholder="Enter email address" name="email" v-model="email">
             <button class="btn btn-primary">Submit</button>
         </form>
     </div>
@@ -18,21 +18,24 @@ export default {
     },
     data(){
         return {
-            user: '',
+            user: Object,
+            check: '',
             route: useRouter()
         }
     },
     methods: {
         onSubmit(e){
             e.preventDefault()
-
-            const id = this.user
-            UserService.getProfile(id).then((response) => {
+            const comp = this.email
+            UserService.findUserByEmail(comp).then((response) => {
+                this.user = response.data
                 if(response.data === null){
-                    alert("User does not exist")
+                    alert("User not found in database")
                 } else {
+                    
+                    console.log(this.user.id, this.user.firstName);
                     this.route.push({
-                    path: `/profile/${id}`
+                        path: `/profile/${this.user.id}`
                     })
                 }
             })

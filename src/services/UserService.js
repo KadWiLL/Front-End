@@ -25,6 +25,14 @@ class UserService  {
     findUser(){
         return http.post(`/users/email`)
     }
+
+    deletePost(id){
+        return http.delete(`/post/${id}`)
+    }
+
+    findUserByEmail(email){
+        return http.get(`/find/${email}`)
+    }
 }
 
 export default new UserService()

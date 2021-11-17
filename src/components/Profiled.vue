@@ -20,6 +20,7 @@
                 <div class="post-body-footer">
                     <i class="far fa-heart"> {{ posts.likes}}</i>
                     <i class="far fa-thumbs-down"> {{ posts.dislikes}}</i>
+                    <i @dblclick="$emit('delete-post', posts.id)" class="far fa-trash-alt"></i>
                 </div>
             </div>
             
@@ -29,6 +30,7 @@
 </template>
 
 <script>
+
 export default {
     name: 'Profiled',
     components: {
@@ -105,7 +107,7 @@ export default {
 }
 
 .fa-heart{
-    color: red;
+    color: pink;
     font-size: 25px;
     margin-right: 30px;
 }
@@ -114,6 +116,16 @@ export default {
     color: blue;
     font-size: 25px;
     margin-right: 30px;
+}
+
+.fa-trash-alt{
+    color: red;
+    font-size: 25px;
+    margin-right: 30px;
+}
+
+.fa:hover{
+    cursor: pointer;
 }
 
 

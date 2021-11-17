@@ -20,6 +20,7 @@
                 <div class="post-body-footer">
                     <i class="far fa-heart"> {{ post.likes}}</i>
                     <i class="far fa-thumbs-down"> {{ post.dislikes}}</i>
+                    <i class="far um fa-trash-alt"></i>
                 </div>
             </div>
             
@@ -100,6 +101,12 @@ export default {
 }
 
 .fa-heart{
+    color: pink;
+    font-size: 25px;
+    margin-right: 30px;
+}
+
+.fa-trash-alt{
     color: red;
     font-size: 25px;
     margin-right: 30px;
