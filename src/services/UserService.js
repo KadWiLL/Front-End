@@ -27,11 +27,15 @@ class UserService  {
     }
 
     deletePost(id){
-        return http.delete(`/post/${id}`)
+        return http.delete(`/users/posts/${id}`)
     }
 
     findUserByEmail(email){
         return http.get(`/find/${email}`)
+    }
+
+    updateLikes(id){
+        return http.put(`/users/posts/${id}`)
     }
 }
 

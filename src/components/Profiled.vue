@@ -18,7 +18,7 @@
                     <h1>{{posts.text}}</h1>
                 </div>
                 <div class="post-body-footer">
-                    <i class="far fa-heart"> {{ posts.likes}}</i>
+                    <i @click="$emit('update-likes', posts.id)" class="far fa-heart"> {{ posts.likes}}</i>
                     <i class="far fa-thumbs-down"> {{ posts.dislikes}}</i>
                     <i @dblclick="$emit('delete-post', posts.id)" class="far fa-trash-alt"></i>
                 </div>

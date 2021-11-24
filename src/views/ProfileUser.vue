@@ -8,6 +8,7 @@
             :post="users.posts"
             :uid="users.id"
             @delete-post="deletePost"
+            @update-likes="updateLikes"
         />   
     </div>
     
@@ -47,14 +48,20 @@ export default {
             })
         },
 
+        updateLikes(id){
+            UserService.updateLikes(id).then(() => {
+                this.users.posts = [...this.users.posts]
+            })
+        },
+
         deletePost(id){
             
             UserService.deletePost(id).then(() => {
-                this.route.push({
-                    path: `/profile/${this.route.params.user}`
+                this.users.posts = this.users.posts.filter((deletedPost) => {
+                    deletedPost.id !== id
                 })
             })
-        }
+        },
     },
     async created(){
         this.getProfileId()
